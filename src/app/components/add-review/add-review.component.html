@@ -1,0 +1,22 @@
+<div *ngIf="submitted; else elseBlock">
+    <h4>Review submitted successfully</h4>
+    <a class="btn btn-primary" [routerLink]="['movies/',id]">Back to Movie</a>
+</div>
+<ng-template #elseBlock>
+    <form [formGroup]="form" (ngSubmit)="saveReview()">
+        <div class="mb-3">
+            <div *ngIf="editing; else elseBlockReview">
+                <h4>Edit Review</h4>
+            </div>
+            <ng-template #elseBlockReview>
+                <h4>Create Review</h4>
+            </ng-template>
+            <input title="review" type="text" class="form-control" id="review" formControlName="review">
+        </div>
+        <div class="mb-3">
+            <button title="submit" type="submit" class="btn btn-primary mb-3">
+Submit
+            </button>
+        </div>
+    </form>
+</ng-template>

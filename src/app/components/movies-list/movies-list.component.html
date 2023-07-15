@@ -1,0 +1,31 @@
+<h3>Movie Results</h3>
+<div class="row">
+    <div class="col">
+        <div class="mb-3">
+            <input id="title" class="form-control" [formControl]="title" placeholder="Search by title">
+        </div>
+    </div>
+    <div class="col">
+        <select title="Select by Rating" class="form-select" #selectRating (change)="changeRating(selectRating.value)">
+            <option selected>Select by Rating</option>
+            <option *ngFor="let rating of ratings" [value]="rating">{{rating}}</option>
+        </select>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g4">
+    <div class="col" *ngFor="let movie of movies">
+        <div class="card">
+            <img *ngIf="movie.poster" src="{{movie.poster}}" class="card-img-top" alt="..." onerror="this.style.visibility = 'hidden'">
+            <div class="card-body">
+                <h5 class="card-title">{{movie.title}}</h5>
+                <p class="card-text">Rating:{{movie.rated}}</p>
+                <p class="card-text">{{movie.plot}}</p>
+                <a class="btn btn-primary" [routerLink]="['/movies/',movie._id]">View Reviews</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+Showing Page:{{currentPage}}
+<button type="button" class="btn btn-link" (click)="getNextPage()">Get next {{entriesPerPage}}</button>

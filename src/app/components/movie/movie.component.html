@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col">
+    <img
+      *ngIf="movie.poster"
+      src="{{ movie.poster }}"
+      class="card-img-top"
+      alt="..."
+    />
+  </div>
+  <div class="col">
+    <div class="card-body">
+      <h5 class="card-title">{{ movie.title }}</h5>
+      <p class="card-text">{{ movie.plot }}</p>
+      <a class="btn btn-primary" [routerLink]="['/movies/review', movie._id]"
+        >Add Reviews</a>
+    </div>
+    <h2>Reviews</h2>
+    <div *ngFor="let review of movie.reviews">
+        <div class="card border-light">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{review.name}} reviewed on {{getFormattedDate(review.date)}}
+                </h5>
+                <p class="card-text">{{review.review}}</p>
+                <div *ngIf="userInfo.id.length>0 && userInfo.id === review.user_id">
+                <a class="card-link" [routerLink]="['/movies/review',movie._id]" [state]="{data:{review:review}}">Edit</a>
+                <button type="button" class="btn btn-link" (click)="deleteReview(review._id)">Delete</button>
+                </div>  
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
